@@ -7,6 +7,10 @@
 </head>
 <body>
     <script>
+
+        let playerScore = 0;
+        let computerScore = 0;
+
         // First function getComputerChoice randomly returns rock, paper, or scissors
         let getComputerChoice = function() {
             let num = Math.floor(Math.random() * 3);
@@ -26,19 +30,36 @@
             playerSelection = window.prompt("Rock, paper, or scissors?");
             computerSelection = getComputerChoice();
             if (playerSelection.toLowerCase() == "rock" || computerSelection.toLowerCase() == "scissor") {
-                console.log("You win! Rock beats scissor");
+                console.log("You win! Rock beats scissor.");
+                playerScore++;
             }
             else if (playerSelection.toLowerCase() == "rock" || computerSelection.toLowerCase() == "paper") {
                 console.log("You lose! Paper beats rock.");
+                computerScore++;
             }
             else {
                 console.log("It's a tie!");
             }
         }
 
-        playRound();
-
         // Final function uses previous function to play 5 rounds and keeps score to report the winner and loser at the end
+        let game = function() {
+            for (i = 0; i < 5; i++) {
+                playRound();
+            }
+            if (playerScore > computerScore) {
+                console.log("You're the winner!");
+            }
+            else if (playerScore < computerScore) {
+                console.log("You're the loser!");
+            }
+            else  {
+                console.log("It's a tie! What are the odds!");
+            }
+        }
+        
+        game();
+
     </script>
 </body>
 </html>

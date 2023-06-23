@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock, Paper, Scissors!</title>
+    <title>Rock, Paper, Scissor!</title>
 </head>
 <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissor">Scissor</button>
+    <button id="reset">Reset</button>
     <script>
 
         let playerScore = 0;
         let computerScore = 0;
 
-        // First function getComputerChoice randomly returns rock, paper, or scissors
+        // First function getComputerChoice randomly returns rock, paper, or scissor
         let getComputerChoice = function() {
             let num = Math.floor(Math.random() * 3);
             if (num === 0) {
@@ -25,16 +29,36 @@
             }
         }
 
+        let resetScore = function(playerScore, computerScore) {
+            playerScore = 0;
+            computerScore = 0;
+        }
+
+
         // Next function takes two parameters, playerSelection and computerSelection, and returns string with the winner
         let playRound = function(playerSelection, computerSelection) {
-            playerSelection = window.prompt("Rock, paper, or scissors?");
-            computerSelection = getComputerChoice();
-            if (playerSelection.toLowerCase() == "rock" || computerSelection.toLowerCase() == "scissor") {
+            if (playerSelection == "rock" && computerSelection == "scissor") {
                 console.log("You win! Rock beats scissor.");
                 playerScore++;
             }
-            else if (playerSelection.toLowerCase() == "rock" || computerSelection.toLowerCase() == "paper") {
+            else if (playerSelection == "rock" && computerSelection == "paper") {
                 console.log("You lose! Paper beats rock.");
+                computerScore++;
+            }
+            else if (playerSelection == "scissor" && computerSelection == "paper") {
+                console.log("You win! Scissor beats paper.");
+                playerScore++;
+            }
+            else if (playerSelection == "scissor" && computerSelection == "rock") {
+                console.log("You lose! Rock beats scissor.");
+                computerScore++;
+            }
+            else if (playerSelection == "paper" && computerSelection == "rock") {
+                console.log("You win! Paper beats rock.");
+                playerScore++;
+            }
+            else if (playerSelection == "paper" && computerSelection == "scissor") {
+                console.log("You lose! Scissor beats paper.");
                 computerScore++;
             }
             else {
@@ -42,23 +66,11 @@
             }
         }
 
-        // Final function uses previous function to play 5 rounds and keeps score to report the winner and loser at the end
-        let game = function() {
-            for (i = 0; i < 5; i++) {
-                playRound();
-            }
-            if (playerScore > computerScore) {
-                console.log("You're the winner!");
-            }
-            else if (playerScore < computerScore) {
-                console.log("You're the loser!");
-            }
-            else  {
-                console.log("It's a tie! What are the odds!");
-            }
-        }
-        
-        game();
+        // Final function that keeps track of scores and announces first to 5
+        document.getElementById("rock").addEventListener("click", function(){ playRound("rock", getComputerChoice()); });
+        document.getElementById("paper").addEventListener("click", function(){ playRound("paper", getComputerChoice()); });
+        document.getElementById("scissor").addEventListener("click", function(){ playRound("scissor", getComputerChoice()); });
+        document.getElementById("reset").addEventListener("click", resetScore);
 
     </script>
 </body>

@@ -10,6 +10,13 @@
     <button id="paper">Paper</button>
     <button id="scissor">Scissor</button>
     <button id="reset">Reset</button>
+
+    <div>
+        <h1 id="statusUpdate"></h1>
+        <p id="playerScore"></p>
+        <p id="computerScore"></p>
+
+    </div>
     <script>
 
         let playerScore = 0;
@@ -29,44 +36,56 @@
             }
         }
 
-        let resetScore = function(playerScore, computerScore) {
+        let resetScore = function() {
             playerScore = 0;
             computerScore = 0;
+            document.getElementById("playerScore").innerHTML = 0;
+            document.getElementById("computerScore").innerHTML = 0;
+            document.getElementById("statusUpdate").innerHTML = "What will you choose?";
         }
 
 
         // Next function takes two parameters, playerSelection and computerSelection, and returns string with the winner
         let playRound = function(playerSelection, computerSelection) {
             if (playerSelection == "rock" && computerSelection == "scissor") {
-                console.log("You win! Rock beats scissor.");
+                document.getElementById("statusUpdate").innerHTML = "You win! Rock beats scissor.";
                 playerScore++;
             }
             else if (playerSelection == "rock" && computerSelection == "paper") {
-                console.log("You lose! Paper beats rock.");
+                document.getElementById("statusUpdate").innerHTML ="You lose! Paper beats rock.";
                 computerScore++;
             }
             else if (playerSelection == "scissor" && computerSelection == "paper") {
-                console.log("You win! Scissor beats paper.");
+                document.getElementById("statusUpdate").innerHTML ="You win! Scissor beats paper.";
                 playerScore++;
             }
             else if (playerSelection == "scissor" && computerSelection == "rock") {
-                console.log("You lose! Rock beats scissor.");
+                document.getElementById("statusUpdate").innerHTML ="You lose! Rock beats scissor.";
                 computerScore++;
             }
             else if (playerSelection == "paper" && computerSelection == "rock") {
-                console.log("You win! Paper beats rock.");
+                document.getElementById("statusUpdate").innerHTML ="You win! Paper beats rock.";
                 playerScore++;
             }
             else if (playerSelection == "paper" && computerSelection == "scissor") {
-                console.log("You lose! Scissor beats paper.");
+                document.getElementById("statusUpdate").innerHTML ="You lose! Scissor beats paper.";
                 computerScore++;
             }
             else {
-                console.log("It's a tie!");
+                document.getElementById("statusUpdate").innerHTML ="It's a tie!";
+            }
+
+            document.getElementById("playerScore").innerHTML = playerScore;
+            document.getElementById("computerScore").innerHTML = computerScore;
+            
+            if (playerScore == 5) {
+                document.getElementById("statusUpdate").innerHTML = "You Won. Congrats!";
+            }
+            else if (computerScore == 5) {
+                document.getElementById("statusUpdate").innerHTML = "You Lost. Wanna play again?";
             }
         }
 
-        // Final function that keeps track of scores and announces first to 5
         document.getElementById("rock").addEventListener("click", function(){ playRound("rock", getComputerChoice()); });
         document.getElementById("paper").addEventListener("click", function(){ playRound("paper", getComputerChoice()); });
         document.getElementById("scissor").addEventListener("click", function(){ playRound("scissor", getComputerChoice()); });
